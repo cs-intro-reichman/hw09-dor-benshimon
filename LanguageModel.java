@@ -111,7 +111,7 @@ public class LanguageModel {
      * @param numberOfLetters - the size of text to generate
      * @return the generated text
      */
-    public String generate(String initialText, int textLength) {
+ public String generate(String initialText, int textLength) {
         if (initialText.length() < windowLength) {
             return initialText;
         }
@@ -119,7 +119,8 @@ public class LanguageModel {
         String window = initialText.substring(initialText.length() - windowLength);
         String generatedText = initialText;
         
-        while (generatedText.length() < textLength) {
+        // התיקון: עוצרים רק כשהאורך הכולל שווה לטקסט ההתחלתי + כמות התווים שביקשו לייצר
+        while (generatedText.length() < initialText.length() + textLength) {
             List probs = CharDataMap.get(window);
             if (probs == null) {
                 return generatedText;
